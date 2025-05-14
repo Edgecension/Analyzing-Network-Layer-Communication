@@ -17,9 +17,16 @@ Tasked with analyzing the situation to determine which network protocol was affe
 - The error message, "udp port 53 unreachable" is mentioned in the last line. Port 53 is a port for DNS service. The word "unreachable" in the message indicates the UDP message requesting an IP address for the domain "www.yummyrecipesforme.com" did not go through to the DNS server because no service was listening on the receiving DNS port.
 - The remaining lines in the log indicate that ICMP packets were sent two more times, but the same delivery error was received both times. 
 
-## Additional Comments
-The potential impact from the loss of an asset is rated as medium, because the IT department does not know which assets would be at risk. The risk to assets or fines from governing bodies is high because Botium Toys does not have all of the necessary controls in place and is not fully adhering to best practices related to compliance regulations that keep critical data private/secure.
-- Currently, all Botium Toys employees have access to internally stored data and may be able to access cardholder data and customers’ PII/SPII.
+## Incident Report: Network Traffic Analysis
+- As part of the DNS protocol, the UDP protocol was used to contact the DNS server to retrieve the IP address for the domain name of yummyrecipesforme.com. The ICMP protocol was used to respond with an error message, indicating issues contacting the DNS server.
+- The UDP message going from the browser to the DNS server is shown in the first two lines of every log event. The ICMP error response from the DNS server to the browser is displayed in the third and fourth lines of every log event with the error message, “udp port 53 unreachable.” Since port 53 is associated with DNS protocol traffic, this is an issue with the DNS server. Issues with performing the DNS protocol are further evident because the plus sign after the query identification number 35084 indicates flags with the UDP message and the “A?” symbol indicates flags with performing DNS protocol operations.
+- Due to the ICMP error response message about port 53, it is highly likely that the DNS server is not responding. This assumption is further supported by the flags associated with the outgoing UDP message and domain name retrieval.
+- The incident occurred today at 1:24 p.m.
+- Customers notified the organization that they received the message “destination port unreachable” when they attempted to visit the website yummyrecipesforme.com.
+- The cybersecurity team providing IT services to their client organization are currently investigating the issue so customers can access the website again.
+- Conducted packet sniffing tests using tcpdump during investigation. In the resulting log file, DNS port 53 was unreachable.
+- The next step is to identify whether the DNS server is down or traffic to port 53 is blocked by the firewall.
+- DNS server might be down due to a successful Denial of Service attack or a misconfiguration.
 
 ### Skills Learned
 
@@ -29,7 +36,7 @@ The potential impact from the loss of an asset is rated as medium, because the I
 
 ### Tools Used
 
-- Implemented the National Institute of Standards and Technology Cybersecurity Framework (NIST CSF)
+- tcpdump
 
 ## Steps
 <a href="https://docs.google.com/document/d/1Wu5maJVR65YER7_cQAlPMOFMkEQigkfvVIbVKaFDg4g/edit?usp=sharing">Controls and Compliance Checklist Exemplar</a>
