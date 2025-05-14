@@ -1,7 +1,7 @@
 # Analyzing Network Layer Communication
 
 ## Objective  
-Analyze DNS and ICMP traffic in transit using data from a network protocol analyzer tool and identify which network protocol was utilized in assessment of the cybersecurity incident.
+Analyze DNS and ICMP traffic in transit using data from a network protocol analyzer tool.
 
 ## Scenario
 Several customers of clients reported that they were not able to access the client company website www.yummyrecipesforme.com, and saw the error “destination port unreachable” after waiting for the page to load.
@@ -30,13 +30,9 @@ Tasked with analyzing the situation to determine which network protocol was affe
 
 ### Skills Learned
 
-- Ensuring that security checks are established.
-- Monitoring threats, risks, or vulnerabilities that can affect an organization’s business continuity and critical assets.
+- Identified and utilized network protocol in assessment of cybersecurity incident.
 - Development of critical thinking and problem-solving skills in cybersecurity.
 
 ### Tools Used
 
 - tcpdump
-
-## Steps
-<a href="https://docs.google.com/document/d/1Wu5maJVR65YER7_cQAlPMOFMkEQigkfvVIbVKaFDg4g/edit?usp=sharing">Controls and Compliance Checklist Exemplar</a>
