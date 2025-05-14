@@ -8,45 +8,18 @@ Several customers of clients reported that they were not able to access the clie
 Tasked with analyzing the situation to determine which network protocol was affected during this incident. Attempt to visit the website and received the error “destination port unreachable.” To troubleshoot the issue, tcpdump was utilized to attempt to load the webpage again. To load the webpage, the browser sends a query to a DNS server through the UDP protocol to retrieve the IP address for the website's domain name. The browser then uses the IP address as the destination IP for sending an HTTPS request to the web server to display the webpage. The analyzer shows that when UDP packets are sent to the DNS server, ICMP packets are received containing the error message: “udp port 53 unreachable.”
 ![LKXsnNIhT0e1mAz5AEvxog_d363c94e0a4f4a8b90b0be403f6ee1f1_mMBaLWLyXG2omYBcSdjuR8y5_S59zow1ZEPYdjNyJzA1B0r55nI9KmDosI8QHXcEwE51NxM3N5gNtMgSOyVDHyJVLZvZA7_jJtkzUKfxuqFUJPHs57vVVES-LbG5teR8eir4idaqsxFaYJhhVJZn-a_S-txb7zQNIZq07XESgSkqDHuzfvALfYk3lipGVBY](https://github.com/user-attachments/assets/71e39346-4bcc-4239-bcd8-a53b57f3fdb7)
 
-
-## Goals
-Provide an overview of the risks and/or fines that the company might experience due to the current state of their security posture. Assess existing assets and complete the controls and compliance checklist to determine which controls and compliance best practices that need to be implemented to improve Botium Toys’ security posture.
-
-## Current Assets
-Current assets managed by the IT Department include:
-- On-premise equipment for in-office business needs
-- Employee equipment: desktops, laptops, smartphones, remote workstations, headsets, cables, keyboards, mice, docking stations, surveillance cameras, etc.
-- Storefront products available for retail sale on site and online, stored in the company’s adjoining warehouse
-- Management of systems, software, and services: accounting, telecommunication, database, security, ecommerce, and inventory management
-- Internet access
-- Internal network
-- Data retention and storage
-- Legacy system maintenance: end-of-life systems that require human monitoring
-
-## Risk Assessment
-There are inadequate management of assets. Additionally, Botium Toys does not have all of the proper controls in place and may not be fully compliant with U.S. and international regulations and standards.
-
-The first of the five functions of the NIST CSF is Identify. Botium Toys will need to dedicate resources to identify assets so they can appropriately manage them. Additionally, they will need to classify existing assets and determine the impact of the loss of existing assets, including systems, on business continuity.
-
-## Risk Score
-On a scale of 1 to 10, the risk score is 8, which is fairly high. This is due to a lack of controls and adherence to compliance best practices.
+## Following Information From tcpdump Log
+- The first two lines of the log file show the initial outgoing request from computer to the DNS server requesting the IP address of yummyrecipesforme.com. This request is sent in a UDP packet.
+- The third and fourth lines of the log show the response to the UDP packet. The ICMP 203.0.113.2 line is the start of the error message indicating that the UDP packet was undeliverable to port 53 of the DNS server.
+- In front of each request and response, the timestamps indicate when the incident happened. In the log, this is the first sequence of numbers displayed: 13:24:32.192571. Time is 1:24 p.m., 32.192571 seconds.
+- After the timestamps, the source and destination IP addresses are present. In the first line, the UDP packet travels from the browser to the DNS server, this information is displayed as: 192.51.100.15 > 203.0.113.2.domain. The IP address to the left of the greater than (>) symbol is the source address, which in this example is the computer’s IP address. The IP address to the right of the greater than (>) symbol is the destination IP address. In this case, it is the IP address for the DNS server: 203.0.113.2.domain. For the ICMP error response, the source address is 203.0.113.2 and the destination is the computers IP address 192.51.100.15.
+- After the source and destination IP addresses, there can be a number of additional details like the protocol, port number of the source, and flags. In the first line of the error log, the query identification number appears as: 35084. The plus sign after the query identification number indicates there are flags associated with the UDP message. The "A?" indicates a flag associated with the DNS request for an A record, where an A record maps a domain name to an IP address. The third line displays the protocol of the response message to the browser: "ICMP," which is followed by an ICMP error message.
+- The error message, "udp port 53 unreachable" is mentioned in the last line. Port 53 is a port for DNS service. The word "unreachable" in the message indicates the UDP message requesting an IP address for the domain "www.yummyrecipesforme.com" did not go through to the DNS server because no service was listening on the receiving DNS port.
+- The remaining lines in the log indicate that ICMP packets were sent two more times, but the same delivery error was received both times. 
 
 ## Additional Comments
 The potential impact from the loss of an asset is rated as medium, because the IT department does not know which assets would be at risk. The risk to assets or fines from governing bodies is high because Botium Toys does not have all of the necessary controls in place and is not fully adhering to best practices related to compliance regulations that keep critical data private/secure.
 - Currently, all Botium Toys employees have access to internally stored data and may be able to access cardholder data and customers’ PII/SPII.
-- Encryption is not currently used to ensure confidentiality of customers credit card information that is accepted, processed, transmitted, and stored locally in the company’s internal database.
-- Access controls pertaining to least privilege and separation of duties have not been implemented.
-- The IT department has ensured availability and integrated controls to ensure data integrity.
-- The IT department has a firewall that blocks traffic based on an appropriately defined set of security rules.
-- Antivirus software is installed and monitored regularly by the IT department.
-- The IT department has not installed an intrusion detection system (IDS).
-- There are no disaster recovery plans currently in place, and the company does not have backups of critical data.
-- The IT department has established a plan to notify E.U. customers within 72 hours in the event of a security breach. Additionally, privacy policies, procedures, and processes have been developed and are enforced among IT department members, employees, to properly document and maintain data.
-- Although a password policy exists, its requirements are nominal and not in line with current minimum password complexity requirements (e.g., at least eight characters, a combination of letters and at least one number; special characters).
-- There is no centralized password management system that enforces the password policy’s minimum requirements, which sometimes
-affects productivity when employees/vendors submit a ticket to the IT department to recover or reset a password.
-- While legacy systems are monitored and maintained, there is no regular schedule in place for these tasks and intervention methods are unclear.
-- The store’s physical location, which includes Botium Toys’ main offices, store front, and warehouse, has sufficient locks, up-to-date closed-circuit television (CCTV) surveillance, as well as functioning fire detection and prevention systems.
 
 ### Skills Learned
 
